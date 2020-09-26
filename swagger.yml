@@ -6,6 +6,11 @@ info:
 host: "localhost"
 basePath: "/"
 tags:
+- name: "webscoket"
+  description: "Websocket endpoint"
+  externalDocs:
+    description: "Find out more"
+    url: "http://swagger.io"
 - name: "project"
   description: "Everything about projects"
   externalDocs:
@@ -24,7 +29,16 @@ tags:
 schemes:
 - "https"
 - "http"
+- "wss"
+- "ws"
 paths:
+  /websocket:
+    get:
+      tags:
+      - "webscoket"
+      responses:
+        "200":
+          description: "successful operation"
   /project/search:
     get:
       tags:
