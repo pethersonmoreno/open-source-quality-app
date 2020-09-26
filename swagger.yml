@@ -84,6 +84,49 @@ paths:
           description: "Internal Server Error"
           schema:
             $ref: "#/definitions/ApiErrorResponse"
+  /project/{projectId}/issueStatisticsByPeriod:
+    get:
+      tags:
+      - "project"
+      summary: "Get project issues statistics by period"
+      description: "Returns a list of project issues per date in the period"
+      operationId: "getProjectIssuesByPeriod"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "projectId"
+        in: "path"
+        description: "Project id"
+        required: true
+        type: "string"
+        format: "uuid"
+      - name: "start"
+        in: "query"
+        description: "used to define start of period"
+        required: false
+        type: "string"
+        format: "date"
+      - name: "end"
+        in: "query"
+        description: "used to define end of period"
+        required: false
+        type: "string"
+        format: "date"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/ProjectIssuesAtDate"
+        "404":
+          description: "Project not found"
+          schema:
+            $ref: "#/definitions/ApiErrorResponse"
+        "500":
+          description: "Internal Server Error"
+          schema:
+            $ref: "#/definitions/ApiErrorResponse"
   /comparisonPage:
     get:
       tags:
@@ -208,10 +251,6 @@ paths:
 definitions:
   SimplifiedProject:
     type: "object"
-    required:
-    - "id"
-    - "owner"
-    - "name"
     properties:
       id:
         type: "string"
@@ -224,10 +263,6 @@ definitions:
         type: "string"
   Project:
     type: "object"
-    required:
-    - "id"
-    - "owner"
-    - "name"
     properties:
       id:
         type: "string"
@@ -262,12 +297,21 @@ definitions:
       qtdWatchers:
         type: "integer"
         format: "int32"
+      issueLabels:
+        type: "array"
+        items:
+          type: "object"
+          properties:
+            label:
+              type: "string"
+            qtdIssues:
+              type: "string"
+            qtdOpenIssues:
+              type: "string"
+            qtdClosedIssues:
+              type: "string"
   ComparisonPage:
     type: "object"
-    required:
-    - "id"
-    - "slug"
-    - "name"
     properties:
       id:
         type: "string"
@@ -283,10 +327,6 @@ definitions:
           $ref: "#/definitions/SimplifiedProject"
   SearchDone:
     type: "object"
-    required:
-    - "id"
-    - "owner"
-    - "name"
     properties:
       id:
         type: "string"
@@ -294,6 +334,22 @@ definitions:
       search:
         type: "string"
       qtdSearches:
+        type: "integer"
+        format: "int32"
+  ProjectIssuesAtDate:
+    type: "object"
+    properties:
+      date:
+        type: "string"
+        format: "date"
+        example: "2019-05-17"
+      qtdAllIssues:
+        type: "integer"
+        format: "int32"
+      qtdAllOpenIssues:
+        type: "integer"
+        format: "int32"
+      qtdClosedIssuesAtDate:
         type: "integer"
         format: "int32"
   ApiErrorResponse:
