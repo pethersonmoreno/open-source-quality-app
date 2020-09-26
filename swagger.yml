@@ -69,7 +69,7 @@ paths:
     get:
       tags:
       - "project"
-      summary: "Find project by owner and project name"
+      summary: "Find project by project id"
       description: "Returns a single project"
       operationId: "getProjectById"
       produces:
