@@ -1,0 +1,305 @@
+swagger: "2.0"
+info:
+  description: "This is a Open Source Quality server.  You can find out more about this project at [Github pethersonmoreno/open-source-quality-app](https://github.com/pethersonmoreno/open-source-quality-app)."
+  version: "1.0.0"
+  title: "Swagger Open Source Quality"
+host: "localhost"
+basePath: "/"
+tags:
+- name: "project"
+  description: "Everything about projects"
+  externalDocs:
+    description: "Find out more"
+    url: "http://swagger.io"
+- name: "comparisonPage"
+  description: "Everything about comparison pages"
+  externalDocs:
+    description: "Find out more"
+    url: "http://swagger.io"
+- name: "searchDone"
+  description: "Everything about search dones"
+  externalDocs:
+    description: "Find out more"
+    url: "http://swagger.io"
+schemes:
+- "https"
+- "http"
+paths:
+  /project/search:
+    get:
+      tags:
+      - "project"
+      summary: "Search for open source projects"
+      description: "Returns a simplified list of projects"
+      operationId: "searchForProjects"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "search"
+        in: "query"
+        description: "used to search projects by name"
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/SimplifiedProject"
+        "500":
+          description: "Internal Server Error"
+          schema:
+            $ref: "#/definitions/ApiErrorResponse"
+  /project/{projectId}:
+    get:
+      tags:
+      - "project"
+      summary: "Find project by owner and project name"
+      description: "Returns a single project"
+      operationId: "getProjectById"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "projectId"
+        in: "path"
+        description: "Project id"
+        required: true
+        type: "string"
+        format: "uuid"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/Project"
+        "400":
+          description: "Invalid project id supplied"
+          schema:
+            $ref: "#/definitions/ApiErrorResponse"
+        "404":
+          description: "Project not found"
+          schema:
+            $ref: "#/definitions/ApiErrorResponse"
+        "500":
+          description: "Internal Server Error"
+          schema:
+            $ref: "#/definitions/ApiErrorResponse"
+  /comparisonPage:
+    get:
+      tags:
+      - "comparisonPage"
+      summary: "Search for comparision pages"
+      description: "Returns a list of comparision pages"
+      operationId: "searchForComparisonPages"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "project"
+        in: "query"
+        description: "used to search comparision pages with all projects in this lists using IDs"
+        required: false
+        type: "array"
+        items:
+          type: "string"
+          format: "uuid"
+      - name: "exact"
+        in: "query"
+        description: "used to force return only comparision pages with exact projects defined"
+        required: false
+        type: "boolean"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/ComparisonPage"
+        "400":
+          description: "Invalid project id supplied or exact needs projects defined"
+          schema:
+            $ref: "#/definitions/ApiErrorResponse"
+        "500":
+          description: "Internal Server Error"
+          schema:
+            $ref: "#/definitions/ApiErrorResponse"
+    post:
+      tags:
+      - "comparisonPage"
+      summary: "Create comparision page"
+      description: ""
+      operationId: "createComparasionPage"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Comparision page to be created"
+        required: true
+        schema:
+          type: "array"
+          items:
+            type: "string"
+            format: "uuid"
+      responses:
+        "200":
+          description: "successful operation"
+        "405":
+          description: "Invalid input"
+          schema:
+            $ref: "#/definitions/ApiErrorResponse"
+        "500":
+          description: "Internal Server Error"
+          schema:
+            $ref: "#/definitions/ApiErrorResponse"
+  /comparisonPage/{slug}:
+    get:
+      tags:
+      - "comparisonPage"
+      summary: "Find comparison page by slug"
+      description: "Returns a comparison page"
+      operationId: "getComparisonPageBySlug"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "slug"
+        in: "path"
+        description: "Slug of comparision page to return"
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/ComparisonPage"
+        "400":
+          description: "Invalid slug supplied"
+          schema:
+            $ref: "#/definitions/ApiErrorResponse"
+        "404":
+          description: "Comparision Page not found"
+          schema:
+            $ref: "#/definitions/ApiErrorResponse"
+        "500":
+          description: "Internal Server Error"
+          schema:
+            $ref: "#/definitions/ApiErrorResponse"
+  /searchDone:
+    get:
+      tags:
+      - "searchDone"
+      summary: "Searches done"
+      description: "Returns a list of searches done"
+      operationId: "getAllSearchesDone"
+      produces:
+      - "application/json"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/SearchDone"
+        "500":
+          description: "Internal Server Error"
+          schema:
+            $ref: "#/definitions/ApiErrorResponse"
+definitions:
+  SimplifiedProject:
+    type: "object"
+    required:
+    - "id"
+    - "owner"
+    - "name"
+    properties:
+      id:
+        type: "string"
+        format: "uuid"
+      owner:
+        type: "string"
+      name:
+        type: "string"
+      description:
+        type: "string"
+  Project:
+    type: "object"
+    required:
+    - "id"
+    - "owner"
+    - "name"
+    properties:
+      id:
+        type: "string"
+        format: "uuid"
+      owner:
+        type: "string"
+      name:
+        type: "string"
+      description:
+        type: "string"
+      qtdIssues:
+        type: "integer"
+        format: "int32"
+      qtdOpenIssues:
+        type: "integer"
+        format: "int32"
+      avgTimeCloseIssues:
+        type: "number"
+        format: "double"
+      stdDeviationTimeCloseIssues:
+        type: "number"
+        format: "double"
+      qtdStars:
+        type: "integer"
+        format: "int32"
+      qtdForks:
+        type: "integer"
+        format: "int32"
+      qtdContributors:
+        type: "integer"
+        format: "int32"
+      qtdWatchers:
+        type: "integer"
+        format: "int32"
+  ComparisonPage:
+    type: "object"
+    required:
+    - "id"
+    - "slug"
+    - "name"
+    properties:
+      id:
+        type: "string"
+        format: "uuid"
+      slug:
+        type: "string"
+      qtdUserVisits:
+        type: "integer"
+        format: "int32"
+      projects:
+        type: "array"
+        items:
+          $ref: "#/definitions/SimplifiedProject"
+  SearchDone:
+    type: "object"
+    required:
+    - "id"
+    - "owner"
+    - "name"
+    properties:
+      id:
+        type: "string"
+        format: "uuid"
+      search:
+        type: "string"
+      qtdSearches:
+        type: "integer"
+        format: "int32"
+  ApiErrorResponse:
+    type: "object"
+    properties:
+      code:
+        type: "string"
+      message:
+        type: "string"
