@@ -1,0 +1,21 @@
+{
+  "name": "@open-source-quality-app/monorepo",
+  "version": "0.0.1",
+  "repository": "git@github.com:pethersonmoreno/open-source-quality-app.git",
+  "author": "Petherson Moreno <pethermoreno@gmail.com>",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "postinstall": "lerna run prepare",
+    "start:initial-swagger": "lerna run --scope=@open-source-quality-app/initial-swagger --stream start"
+  },
+  "workspaces": {
+    "packages": [
+      "packages/*"
+    ],
+    "nohoist": []
+  },
+  "dependencies": {
+    "lerna": "^3.22.1"
+  }
+}
