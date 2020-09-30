@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import './style.scss';
 
 type TResultSearchTableProps = {};
@@ -21,6 +22,7 @@ const defaultProjects = [
 ];
 
 function ResultSearchTable(props: TResultSearchTableProps) {
+  const location = useLocation();
   const [projects, setProjects] = useState(defaultProjects);
   return (
     <div className="result-search-table">

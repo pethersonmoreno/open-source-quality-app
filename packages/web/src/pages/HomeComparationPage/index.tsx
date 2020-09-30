@@ -1,11 +1,11 @@
 import React from 'react';
 import ResultSearch from '../../components/ResultSearch';
 import SearchBar from '../../components/SearchBar';
-import './Home.scss';
+import './style.scss';
 
-function Home() {
+function HomeComparationPage() {
   return (
-    <div className="home">
+    <div className="home-comparation-page">
       <div className="__content">
         <SearchBar />
         <ResultSearch />
@@ -14,4 +14,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default HomeComparationPage;
