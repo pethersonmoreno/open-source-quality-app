@@ -12,12 +12,14 @@ header.app-header {
     flex-direction: column;
     > .__app-name {
       margin: 0;
-      font-family: Roboto;
-      font-style: normal;
-      font-weight: 500;
-      font-size: 4.3rem;
-      line-height: 5.0rem;
-      color: #000000;
+      > a {
+        font-family: Roboto;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 4.3rem;
+        line-height: 5.0rem;
+        color: #000000;
+      }
     }
     > .__app-description{
       margin: 0.2rem 0 2.2rem;

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import './style.scss';
 
 type TResultSearchTableProps = {};
@@ -20,10 +20,16 @@ const defaultProjects = [
     stdDeviationTimeCloseIssues: 20,
   },
 ];
+type TResultSearchTableParams = {
+  slug?: string;
+};
 
 function ResultSearchTable(props: TResultSearchTableProps) {
-  const location = useLocation();
+  const { slug } = useParams() as TResultSearchTableParams;
   const [projects, setProjects] = useState(defaultProjects);
+  if (!slug) {
+    return null;
+  }
   return (
     <div className="result-search-table">
       <div className="__row-header">
