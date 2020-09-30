@@ -1,5 +1,6 @@
 import React from 'react';
-import SearchBar from './components/SearchBar';
+import ResultSearch from '../../components/ResultSearch';
+import SearchBar from '../../components/SearchBar';
 import './Home.scss';
 
 function Home() {
@@ -7,6 +8,7 @@ function Home() {
     <div className="home">
       <div className="__content">
         <SearchBar />
+        <ResultSearch />
       </div>
     </div>
   );

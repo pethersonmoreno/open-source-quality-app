@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import Button from '../../../../components/Button';
-import InputText from '../../../../components/InputText';
+import Button from '../Button';
+import InputText from '../InputText';
 import './style.scss';
 
 function SearchBar() {
