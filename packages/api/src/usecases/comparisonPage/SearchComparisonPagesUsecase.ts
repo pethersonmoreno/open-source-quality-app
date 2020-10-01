@@ -2,6 +2,7 @@ import { Project } from '../../entities/Project';
 import { ProjectsRepository } from '../../repositories/ProjectsRepository';
 import { ComparisonPagesRepository } from '../../repositories/ComparisonPagesRepository';
 import { ComparisonPage } from '../../entities/ComparisonPage';
+import { ComparisonPageDTO } from './ComparisonPageDTO';
 
 export class SearchComparisonPagesUsecase {
   constructor(
@@ -9,14 +10,14 @@ export class SearchComparisonPagesUsecase {
     private comparisonPagesRepository: ComparisonPagesRepository,
   ) {}
 
-  async execute(projectIds: string[], exact: boolean) {
+  async execute(projectIds: string[], exact: boolean): Promise<ComparisonPageDTO[]> {
     const comparisonPagesFound = await this.comparisonPagesRepository.search(projectIds, exact);
     const projects = await this.getProjectsFromComparisonPages(comparisonPagesFound);
     return comparisonPagesFound.map((comparisonPage) => ({
-      id: comparisonPage.slug,
+      slug: comparisonPage.slug,
       qtdUserVisits: comparisonPage.qtdUserVisits,
       projects: comparisonPage.projectIds.map((id) => {
-        const project = projects.find((project) => project.id === id) as Project;
+        const project = projects.find((proj) => proj.id === id) as Project;
         return {
           fullName: project.id,
           owner: project.owner,

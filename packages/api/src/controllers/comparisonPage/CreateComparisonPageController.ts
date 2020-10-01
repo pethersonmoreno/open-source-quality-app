@@ -3,6 +3,7 @@ import { CreateComparisonPageUsecase } from '../../usecases/comparisonPage/Creat
 
 export class CreateComparisonPageController {
   constructor(private readonly createComparisonPageUsecase: CreateComparisonPageUsecase) {}
+
   handle = async (request: Request, response: Response): Promise<Response> => {
     const projectsIds = request.body as Array<string>;
     try {

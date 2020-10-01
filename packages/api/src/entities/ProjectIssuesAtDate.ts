@@ -1,9 +1,10 @@
-import { v4 as uuid } from 'uuid';
-
 export class ProjectIssuesAtDate {
   public readonly date: string;
+
   public readonly qtdAllIssues: number;
+
   public readonly qtdAllOpenIssues: number;
+
   public readonly qtdClosedIssuesAtDate: number;
 
   constructor(props: ProjectIssuesAtDate) {

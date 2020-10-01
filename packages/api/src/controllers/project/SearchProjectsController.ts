@@ -3,6 +3,7 @@ import { SearchProjectsUsecase } from '../../usecases/project/SearchProjectsUsec
 
 export class SearchProjectsController {
   constructor(private readonly searchProjectsUsecase: SearchProjectsUsecase) {}
+
   handle = async (request: Request, response: Response): Promise<Response> => {
     const search = request.query.search as string | undefined;
     if (!search) {

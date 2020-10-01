@@ -10,6 +10,7 @@ import { UsecaseFactory } from '../UsecaseFactory';
 
 export class UsecaseFactoryDefault implements UsecaseFactory {
   constructor(private repositoryFactory: RepositoryFactory, private externalFactory: ExternalFactory) {}
+
   createCreateComparisonPageUsecase(): CreateComparisonPageUsecase {
     return new CreateComparisonPageUsecase(
       this.repositoryFactory.createProjectsRepository(),
@@ -18,27 +19,32 @@ export class UsecaseFactoryDefault implements UsecaseFactory {
       this.repositoryFactory.createComparisonPagesRepository(),
     );
   }
+
   createGetComparisonPageUsecase(): GetComparisonPageUsecase {
     return new GetComparisonPageUsecase(
       this.repositoryFactory.createComparisonPagesRepository(),
       this.repositoryFactory.createProjectsRepository(),
     );
   }
+
   createSearchComparisonPagesUsecase(): SearchComparisonPagesUsecase {
     return new SearchComparisonPagesUsecase(
       this.repositoryFactory.createProjectsRepository(),
       this.repositoryFactory.createComparisonPagesRepository(),
     );
   }
+
   createGetProjectUsecase(): GetProjectUsecase {
     return new GetProjectUsecase(this.repositoryFactory.createProjectsRepository());
   }
+
   createRegisterProjectUsecase(): RegisterProjectUsecase {
     return new RegisterProjectUsecase(
       this.repositoryFactory.createProjectsRepository(),
       this.externalFactory.createOpenSourceProjectsAPI(),
     );
   }
+
   createSearchProjectsUsecase(): SearchProjectsUsecase {
     return new SearchProjectsUsecase(this.externalFactory.createOpenSourceProjectsAPI());
   }

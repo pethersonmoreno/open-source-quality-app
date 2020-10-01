@@ -1,8 +1,12 @@
 export class Project {
   public readonly id: string;
+
   public readonly owner: string;
+
   public readonly name: string;
+
   public readonly description: string;
+
   // public readonly qtdIssues: number;
   public readonly qtdOpenIssues: number;
   // public readonly avgTimeCloseIssues: number;

@@ -3,6 +3,7 @@ import { GetComparisonPageUsecase } from '../../usecases/comparisonPage/GetCompa
 
 export class GetComparisonPageController {
   constructor(private readonly getComparisonPageUsecase: GetComparisonPageUsecase) {}
+
   handle = async (request: Request, response: Response): Promise<Response> => {
     const slug = request.params.slug as string;
     try {

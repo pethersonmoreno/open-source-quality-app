@@ -5,10 +5,7 @@ import { ProjectsRepository } from '../../repositories/ProjectsRepository';
 import { RepositoryFactory } from '../RepositoryFactory';
 
 export class InMemoryRepositoryFactory implements RepositoryFactory {
-  createProjectsRepository(): ProjectsRepository {
-    return new InMemoryProjectsRepository();
-  }
-  createComparisonPagesRepository(): ComparisonPagesRepository {
-    return new InMemoryComparisonPagesRepository();
-  }
+  createProjectsRepository = (): ProjectsRepository => new InMemoryProjectsRepository();
+
+  createComparisonPagesRepository = (): ComparisonPagesRepository => new InMemoryComparisonPagesRepository();
 }

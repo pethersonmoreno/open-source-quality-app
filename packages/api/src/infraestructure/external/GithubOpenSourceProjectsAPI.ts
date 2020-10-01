@@ -9,13 +9,15 @@ const axiosApiGithub = axios.create({
 });
 
 type TSearchResultGithub = {
+  // eslint-disable-next-line camelcase
   total_count: number;
+  // eslint-disable-next-line camelcase
   incomplete_results: boolean;
   items: TRepositoryGithub[];
 };
 
 export class GithubOpenSourceProjectsAPI implements OpenSourceProjectsAPI {
-  async search(search: string): Promise<SimplifiedProject[]> {
+  search = async (search: string): Promise<SimplifiedProject[]> => {
     const result = (await axiosApiGithub.get(`/search/repositories?q=${encodeURIComponent(search)}`))
       .data as TSearchResultGithub;
     return result.items.map(
@@ -27,8 +29,9 @@ export class GithubOpenSourceProjectsAPI implements OpenSourceProjectsAPI {
           description: item.description,
         }),
     );
-  }
-  async findByFullname(fullName: string): Promise<TRepositoryGithub | null> {
+  };
+
+  findByFullname = async (fullName: string): Promise<TRepositoryGithub | null> => {
     try {
       return (await axiosApiGithub.get(`/repos/${fullName}`)).data as TRepositoryGithub;
     } catch (error) {
@@ -37,7 +40,8 @@ export class GithubOpenSourceProjectsAPI implements OpenSourceProjectsAPI {
       }
       throw error;
     }
-  }
+  };
+
   async findSimplifiedByFullname(fullName: string): Promise<SimplifiedProject | null> {
     const result = await this.findByFullname(fullName);
     if (result === null) {

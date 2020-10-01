@@ -28,16 +28,12 @@ export class InMemoryComparisonPagesRepository implements ComparisonPagesReposit
     if (!exact) {
       return matchedComparisonPages;
     }
-    return matchedComparisonPages.filter(
-      (comparisonPage) => comparisonPage.projectIds.length === comparisonPage.projectIds.length,
-    );
+    return matchedComparisonPages.filter((comparisonPage) => comparisonPage.projectIds.length === projectIds.length);
   }
 
-  async findBySlug(slug: string): Promise<ComparisonPage | null> {
-    return comparisonPagesList.find((comparisonPage) => comparisonPage.slug === slug) || null;
-  }
+  findBySlug = async (slug: string): Promise<ComparisonPage | null> =>
+    comparisonPagesList.find((comparisonPage) => comparisonPage.slug === slug) || null;
 
-  private isThereRepeatedId(projectIds: string[]): boolean {
-    return projectIds.filter((id) => projectIds.filter((projId) => projId === id).length > 1).length > 0;
-  }
+  private isThereRepeatedId = (projectIds: string[]): boolean =>
+    projectIds.filter((id) => projectIds.filter((projId) => projId === id).length > 1).length > 0;
 }

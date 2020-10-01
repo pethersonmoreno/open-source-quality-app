@@ -3,7 +3,5 @@ import { GithubOpenSourceProjectsAPI } from '../../infraestructure/external/Gith
 import { ExternalFactory } from '../ExternalFactory';
 
 export class ExternalFactoryDefault implements ExternalFactory {
-  createOpenSourceProjectsAPI(): OpenSourceProjectsAPI {
-    return new GithubOpenSourceProjectsAPI();
-  }
+  createOpenSourceProjectsAPI = (): OpenSourceProjectsAPI => new GithubOpenSourceProjectsAPI();
 }

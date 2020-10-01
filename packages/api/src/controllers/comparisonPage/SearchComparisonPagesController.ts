@@ -3,6 +3,7 @@ import { SearchComparisonPagesUsecase } from '../../usecases/comparisonPage/Sear
 
 export class SearchComparisonPagesController {
   constructor(private readonly searchComparisonPagesUsecase: SearchComparisonPagesUsecase) {}
+
   handle = async (request: Request, response: Response): Promise<Response> => {
     const queryProject = request.query.project as string | string[] | undefined;
     if (queryProject === undefined) {

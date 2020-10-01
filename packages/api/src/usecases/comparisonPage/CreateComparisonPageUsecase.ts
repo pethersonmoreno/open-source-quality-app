@@ -35,7 +35,7 @@ export class CreateComparisonPageUsecase {
   }
 
   private async getCurrentProjects(projectFullNames: string[]) {
-    return await Promise.all(
+    return Promise.all(
       projectFullNames.map(async (fullName) => ({
         fullName,
         project: await this.projectsRepository.findById(fullName),
@@ -61,31 +61,27 @@ export class CreateComparisonPageUsecase {
       throw new Error('Project not found');
     }
     const projectsCreated = await Promise.all(
-      projectsToCreateFound.map(
-        async ({ simplifiedProject }) => await this.registerProjectUsecase.execute(simplifiedProject),
-      ),
+      projectsToCreateFound.map(({ simplifiedProject }) => this.registerProjectUsecase.execute(simplifiedProject)),
     );
     return projectsCreated;
   }
 
-  private async generateSlugToComparisonProjects(projects: Project[]): Promise<string> {
-    let fullNameIndex = -1;
-    const newSlug = () =>
-      projects.reduce(
-        (acc, project, index) =>
-          `${acc}${acc ? '-' : ''}${index <= fullNameIndex ? `${project.owner}-` : ''}${project.name}`,
-        '',
-      );
-    let foundSlug: boolean;
-    let slug: string;
-    do {
-      slug = newSlug();
-      foundSlug = !!(await this.comparisonPagesRepository.findBySlug(slug));
-      if (!foundSlug) {
-        return slug;
-      }
-      fullNameIndex++;
-    } while (fullNameIndex < projects.length);
+  private async generateSlugToComparisonProjects(projects: Project[], fullNameIndex = -1): Promise<string> {
+    const slug = this.generateSlug(projects, fullNameIndex);
+    const foundSlug = !!(await this.comparisonPagesRepository.findBySlug(slug));
+    if (!foundSlug) {
+      return slug;
+    }
+    if (fullNameIndex < projects.length) {
+      return this.generateSlugToComparisonProjects(projects, fullNameIndex + 1);
+    }
     throw new Error('Fail on generate slug to comparison project');
   }
+
+  private generateSlug = (projects: Project[], fullNameIndex: number) =>
+    projects.reduce(
+      (acc, project, index) =>
+        `${acc}${acc ? '-' : ''}${index <= fullNameIndex ? `${project.owner}-` : ''}${project.name}`,
+      '',
+    );
 }

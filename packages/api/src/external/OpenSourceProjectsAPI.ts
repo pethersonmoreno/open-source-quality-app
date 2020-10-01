@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import { SimplifiedProject } from '../entities/SimplifiedProject';
 
 export type TRepositoryGithub = {

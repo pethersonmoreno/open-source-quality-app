@@ -3,6 +3,7 @@ import { GetProjectUsecase } from '../../usecases/project/GetProjectUsecase';
 
 export class GetProjectController {
   constructor(private readonly getProjectUsecase: GetProjectUsecase) {}
+
   handle = async (request: Request, response: Response): Promise<Response> => {
     const projectId = request.params.projectId as string;
     try {

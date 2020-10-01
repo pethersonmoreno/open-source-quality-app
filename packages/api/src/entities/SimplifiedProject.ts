@@ -1,7 +1,10 @@
 export class SimplifiedProject {
   public readonly fullName: string;
+
   public readonly owner: string;
+
   public readonly name: string;
+
   public readonly description: string;
 
   constructor(props: SimplifiedProject) {

@@ -11,6 +11,7 @@ export class InMemoryProjectsRepository implements ProjectsRepository {
     }
     projectsList = [...projectsList, project];
   }
+
   async update(project: Project): Promise<void> {
     const projectFound = await this.findById(project.id);
     if (!projectFound) {
@@ -23,7 +24,6 @@ export class InMemoryProjectsRepository implements ProjectsRepository {
       return currentProject;
     });
   }
-  async findById(id: string): Promise<Project | null> {
-    return projectsList.find((project) => project.id === id) || null;
-  }
+
+  findById = async (id: string): Promise<Project | null> => projectsList.find((project) => project.id === id) || null;
 }
