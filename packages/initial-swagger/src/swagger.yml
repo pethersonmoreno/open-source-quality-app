@@ -145,15 +145,15 @@ paths:
     get:
       tags:
       - "comparisonPage"
-      summary: "Search for comparision pages"
-      description: "Returns a list of comparision pages"
+      summary: "Search for comparison pages"
+      description: "Returns a list of comparison pages"
       operationId: "searchForComparisonPages"
       produces:
       - "application/json"
       parameters:
       - name: "project"
         in: "query"
-        description: "used to search comparision pages with all projects in this lists using IDs"
+        description: "used to search comparison pages with all projects in this lists using IDs"
         required: false
         type: "array"
         items:
@@ -161,7 +161,7 @@ paths:
           format: "uuid"
       - name: "exact"
         in: "query"
-        description: "used to force return only comparision pages with exact projects defined"
+        description: "used to force return only comparison pages with exact projects defined"
         required: false
         type: "boolean"
       responses:
@@ -182,9 +182,9 @@ paths:
     post:
       tags:
       - "comparisonPage"
-      summary: "Create comparision page"
+      summary: "Create comparison page"
       description: ""
-      operationId: "createComparasionPage"
+      operationId: "createComparasonPage"
       consumes:
       - "application/json"
       produces:
@@ -192,7 +192,7 @@ paths:
       parameters:
       - in: "body"
         name: "body"
-        description: "Comparision page to be created"
+        description: "Comparison page to be created"
         required: true
         schema:
           type: "array"
@@ -222,7 +222,7 @@ paths:
       parameters:
       - name: "slug"
         in: "path"
-        description: "Slug of comparision page to return"
+        description: "Slug of comparison page to return"
         required: true
         type: "string"
       responses:
@@ -235,7 +235,7 @@ paths:
           schema:
             $ref: "#/definitions/ApiErrorResponse"
         "404":
-          description: "Comparision Page not found"
+          description: "Comparison Page not found"
           schema:
             $ref: "#/definitions/ApiErrorResponse"
         "500":
@@ -319,17 +319,17 @@ definitions:
             label:
               type: "string"
             qtdIssues:
-              type: "string"
+              type: "integer"
+              format: "int32"
             qtdOpenIssues:
-              type: "string"
+              type: "integer"
+              format: "int32"
             qtdClosedIssues:
-              type: "string"
+              type: "integer"
+              format: "int32"
   ComparisonPage:
     type: "object"
     properties:
-      id:
-        type: "string"
-        format: "uuid"
       slug:
         type: "string"
       qtdUserVisits:

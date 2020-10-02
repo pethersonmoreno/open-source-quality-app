@@ -10,5 +10,10 @@
   },
   "[typescriptreact]": {
     "editor.formatOnSave": true
-  }
+  },
+  "eslint.workingDirectories": [
+      "./packages/initial-swagger",
+      "./packages/web",
+      "./packages/api"
+  ]
 }

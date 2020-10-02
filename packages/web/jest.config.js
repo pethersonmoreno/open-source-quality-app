@@ -1,20 +1,20 @@
 const path = require('path');
-const createJestConfig = require('react-scripts/scripts/utils/createJestConfig');
+const pathCreateJestConfig = require.resolve('react-scripts/scripts/utils/createJestConfig');
+const createJestConfig = require(pathCreateJestConfig);
 
-const pathReactScripts = path.resolve(__dirname, '..', '..', 'node_modules', 'react-scripts');
+const pathReactScripts = pathCreateJestConfig.replace(/react-scripts.+$/, 'react-scripts');
 
 const jestConfig = createJestConfig(
   (relativePath) => path.resolve(pathReactScripts, relativePath),
   path.resolve(__dirname),
-  false
+  false,
 );
+let setupFilesAfterEnv = jestConfig.setupFilesAfterEnv;
+if (!jestConfig.setupFilesAfterEnv.find((item) => item.includes('setupTests'))) {
+  setupFilesAfterEnv = [...jestConfig.setupFilesAfterEnv, '<rootDir>/src/setupTests.ts'];
+}
 
 module.exports = {
   ...jestConfig,
-  setupFilesAfterEnv: [
-    ...jestConfig.setupFilesAfterEnv,
-    ...[
-      (!jestConfig.setupFilesAfterEnv.find(item => item.includes('setupTests'))?"<rootDir>/src/setupTests.ts":undefined),
-    ],
-  ],
+  setupFilesAfterEnv,
 };
