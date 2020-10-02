@@ -29,3 +29,10 @@ rules:
       ts: never
   no-useless-constructor: off
   '@typescript-eslint/explicit-module-boundary-types': off
+  "import/no-extraneous-dependencies":
+    - "error"
+    - 
+      devDependencies:
+        - '**/*.test.ts'
+        - '**/*.spec.ts'
+  class-methods-use-this: off

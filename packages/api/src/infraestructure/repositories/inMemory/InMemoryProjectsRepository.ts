@@ -25,5 +25,7 @@ export class InMemoryProjectsRepository implements ProjectsRepository {
     });
   }
 
-  findById = async (id: string): Promise<Project | null> => projectsList.find((project) => project.id === id) || null;
+  async findById(id: string): Promise<Project | null> {
+    return projectsList.find((project) => project.id === id) || null;
+  }
 }
