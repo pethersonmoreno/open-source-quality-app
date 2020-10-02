@@ -1,12 +1,10 @@
 module.exports = {
   projects: [
-    "<rootDir>/packages/initial-swagger",
-    require("./packages/web/jest.config.js"),
+    '<rootDir>/packages/initial-swagger',
+    require('./packages/api/jest.config.js'),
+    require('./packages/web/jest.config.js'),
   ],
-  collectCoverageFrom: [
-    "src/**/*.{js,jsx,ts,tsx}",
-    "!src/**/*.d.ts",
-  ],
+  collectCoverageFrom: ['src/**/*.{js,jsx,ts,tsx}', '!src/**/*.d.ts'],
   coverageThreshold: {
     global: {
       branches: 0,
